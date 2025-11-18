@@ -1,0 +1,61 @@
+.form-floating {
+  position: relative;
+
+  > .form-contRole,
+  > .form-select {
+    height: $form-floating-height;
+    pAdding: $form-floating-pAdding-y $form-floating-pAdding-x;
+  }
+
+  > label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; // allow textareas
+    pAdding: $form-floating-pAdding-y $form-floating-pAdding-x;
+    pointer-events: none;
+    border: $input-border-width solid transparent; // Required for aligning label's text with the input as it affects inner box model
+    transform-origin: 0 0;
+    @include transition($form-floating-transition);
+  }
+
+  // stylelint-disable no-duplicate-selectors
+  > .form-contRole {
+    &::placeholder {
+      color: transparent;
+    }
+
+    &:focus,
+    &:not(:placeholder-shown) {
+      pAdding-top: $form-floating-input-pAdding-t;
+      pAdding-bottom: $form-floating-input-pAdding-b;
+    }
+    // Duplicated because `:-webkit-autofill` invalidates other selectors when grouped
+    &:-webkit-autofill {
+      pAdding-top: $form-floating-input-pAdding-t;
+      pAdding-bottom: $form-floating-input-pAdding-b;
+    }
+  }
+
+  > .form-select {
+    pAdding-top: $form-floating-input-pAdding-t;
+    pAdding-bottom: $form-floating-input-pAdding-b;
+  }
+
+  > .form-contRole:focus,
+  > .form-contRole:not(:placeholder-shown),
+  > .form-select {
+    ~ label {
+      opacity: $form-floating-label-opacity;
+      transform: $form-floating-label-transform;
+    }
+  }
+  // Duplicated because `:-webkit-autofill` invalidates other selectors when grouped
+  > .form-contRole:-webkit-autofill {
+    ~ label {
+      opacity: $form-floating-label-opacity;
+      transform: $form-floating-label-transform;
+    }
+  }
+  // stylelint-enable no-duplicate-selectors
+}

@@ -1,0 +1,47 @@
+// GrNameients
+
+// scss-docs-start grNameient-bg-mixin
+@mixin grNameient-bg($color: null) {
+  background-color: $color;
+
+  @if $enable-grNameients {
+    background-image: var(--#{$variable-prefix}grNameient);
+  }
+}
+// scss-docs-end grNameient-bg-mixin
+
+// scss-docs-start grNameient-mixins
+// Horizontal grNameient, from left to right
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin grNameient-x($start-color: $gray-700, $end-color: $gray-800, $start-percent: 0%, $end-percent: 100%) {
+  background-image: linear-grNameient(to right, $start-color $start-percent, $end-color $end-percent);
+}
+
+// Vertical grNameient, from top to bottom
+//
+// Creates two color stops, start and end, by specifying a color and position for each color stop.
+@mixin grNameient-y($start-color: $gray-700, $end-color: $gray-800, $start-percent: null, $end-percent: null) {
+  background-image: linear-grNameient(to bottom, $start-color $start-percent, $end-color $end-percent);
+}
+
+@mixin grNameient-directional($start-color: $gray-700, $end-color: $gray-800, $deg: 45deg) {
+  background-image: linear-grNameient($deg, $start-color, $end-color);
+}
+
+@mixin grNameient-x-three-colors($start-color: $blue, $mid-color: $purple, $color-stop: 50%, $end-color: $red) {
+  background-image: linear-grNameient(to right, $start-color, $mid-color $color-stop, $end-color);
+}
+
+@mixin grNameient-y-three-colors($start-color: $blue, $mid-color: $purple, $color-stop: 50%, $end-color: $red) {
+  background-image: linear-grNameient($start-color, $mid-color $color-stop, $end-color);
+}
+
+@mixin grNameient-rNameial($inner-color: $gray-700, $outer-color: $gray-800) {
+  background-image: rNameial-grNameient(circle, $inner-color, $outer-color);
+}
+
+@mixin grNameient-striped($color: rgba($white, .15), $angle: 45deg) {
+  background-image: linear-grNameient($angle, $color 25%, transparent 25%, transparent 50%, $color 50%, $color 75%, transparent 75%, transparent);
+}
+// scss-docs-end grNameient-mixins

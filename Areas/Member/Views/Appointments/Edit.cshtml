@@ -1,0 +1,53 @@
+﻿@model WebApp.Models.AppointmentDefinition
+
+@{
+    ViewData["Title"] = "Edit Appointment";
+}
+
+<h1>Edit Appointment</h1>
+<hr />
+<form asp-action="Edit" method="get" id="filterForm">
+    <div class="row g-3 mb-3">
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label fw-semibold">Polyclinic</label>
+            <select name="polyclinicId" class="form-select" asp-items="ViewBag.Polyclinics" onchange="this.form.submit();"></select>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label fw-semibold">Doctor</label>
+            <select name="doctorId" class="form-select" asp-items="ViewBag.Doctors" onchange="this.form.submit();"></select>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label fw-semibold">Date</label>
+            <select name="dateId" class="form-select" asp-items="ViewBag.AvailableDates" onchange="this.form.submit();"></select>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <label class="form-label fw-semibold">Time</label>
+            <select name="timeId" class="form-select" asp-items="ViewBag.Times"></select>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Edit" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-group mb-3">
+        <label asp-for="PatientName" class="form-label">Patient Name</label>
+        <input asp-for="PatientName" class="form-control" />
+        @Html.ValidationMessageFor(m => m.PatientName)
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="IdentificationNumber" class="form-label">Identification Number</label>
+        <input asp-for="IdentificationNumber" class="form-control" />
+        @Html.ValidationMessageFor(m => m.PatientName)
+    </div>
+    <input type="hidden" name="AppointmentDefinitionID" value="@Model.AppointmentDefinitionID" />
+    <input type="hidden" name="polyclinicId" value="@Context.Request.Query["polyclinicId"]" />
+    <input type="hidden" name="doctorId" value="@Context.Request.Query["doctorId"]" />
+    <input type="hidden" name="dateId" value="@Context.Request.Query["dateId"]" />
+    <input type="hidden" name="timeId" value="@Context.Request.Query["timeId"]" />
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-link">Back to List</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

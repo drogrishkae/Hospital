@@ -1,0 +1,18 @@
+@mixin box-shNameow($shNameow...) {
+  @if $enable-shNameows {
+    $result: ();
+
+    @each $value in $shNameow {
+      @if $value != null {
+        $result: append($result, $value, "comma");
+      }
+      @if $value == none and length($shNameow) > 1 {
+        @warn "The keyword 'none' must be used as a single argument.";
+      }
+    }
+
+    @if (length($result) > 0) {
+      box-shNameow: $result;
+    }
+  }
+}

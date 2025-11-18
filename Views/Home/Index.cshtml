@@ -1,0 +1,311 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<heName>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</heName>
+
+<body>
+
+
+    <!-- Hero Start -->
+    <div id="appointment" class="container-fluid bg-primary py-5 mb-5 hero-header">
+        <div class="container py-5">
+            <div class="row justify-content-start">
+                <div class="col-lg-8 text-center text-lg-start">
+                    <h1 class="display-1 text-white mb-md-4">
+                        The Best Health Solutions in Your City
+                    </h1>
+                    <div class="pt-2">
+                        <a asp-area="Member" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2" asp-controller="Appointments" asp-action="Create">Book Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Here End -->
+    <!-- About Start -->
+    <div id="about" class="container-fluid py-5">
+        <div class="container">
+            <div class="row gx-5">
+                <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
+                    <div class="position-relative h-100">
+                        <img class="position-absolute w-100 h-100 rounded" src="~/img/about.jpg" style="object-fit: cover;">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="mb-4">
+                        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">About Us</h5>
+                        <h1 class="display-4">
+                            The Best Medical Care for You and Your Family
+                        </h1>
+                    </div>
+                    <p>
+                        Since 2012, in Kurtköy, Istanbul’s rising center, we have been providing uninterrupted healthcare services with our advanced medical technology, specialists in every branch, compliance with international accreditation standards in healthcare, our modern architecture, and fully equipped diagnostic and treatment units.
+                    </p><p>
+                        We work tirelessly to maintain and improve our facility, designed with all the needs of our guests coming from every part of Turkey and the world in mind, within the framework of universal patient rights, where they feel 'comfortable, peaceful, and safe'
+                    </p>
+                    <div class="row g-3 pt-3">
+                        <div class="col-sm-3 col-6">
+                            <div class="bg-light text-center rounded-circle py-4">
+                                <i class="fa fa-3x fa-user-md text-primary mb-3"></i>
+                                <h6 class="mb-0">Competent<small class="d-block text-primary">Doctors</small></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="bg-light text-center rounded-circle py-4">
+                                <i class="fa fa-3x fa-procedures text-primary mb-3"></i>
+                                <h6 class="mb-0">Emergency<small class="d-block text-primary">Service</small></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="bg-light text-center rounded-circle py-4">
+                                <i class="fa fa-3x fa-microscope text-primary mb-3"></i>
+                                <h6 class="mb-0">Accurate<small class="d-block text-primary">Test</small></h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-6">
+                            <div class="bg-light text-center rounded-circle py-4">
+                                <i class="fa fa-3x fa-ambulance text-primary mb-3"></i>
+                                <h6 class="mb-0">Free<small class="d-block text-primary">Ambulance</small></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+    <!-- Pricing Plan Start -->
+    <div id ="units"  class="text-center mx-auto mb-5" style="max-width: 500px;">
+        <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Medical Units</h5>
+        <h1 class="display-6 mb-4">Qualified Medical Care</h1>
+    </div>
+
+    @{
+        var units = new[]
+        {
+        new {
+        Name = "Cardiology",
+        Image = "img/price-1.jpg",
+        Features = new [] {
+        "Emergency Medical Treatment",
+        "Highly Experienced Doctors",
+        "Highest Success Rate",
+        "Telephone Service"
+        }
+        },
+        new {
+        Name = "Pulmonology",
+        Image = "img/price-2.jpg",
+        Features = new [] {
+        "Emergency Medical Treatment",
+        "Highly Experienced Doctors",
+        "Highest Success Rate",
+        "Telephone Service"
+        }
+        },
+        new {
+        Name = "Dermatology",
+        Image = "img/price-3.jpg",
+        Features = new [] {
+        "Emergency Medical Treatment",
+        "Highly Experienced Doctors",
+        "Highest Success Rate",
+        "Telephone Service"
+        }
+        }
+        };
+    }
+
+    <div class="row g-4">
+        @foreach (var unit in units)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="bg-light rounded overflow-hidden shadow-sm unit-card" style="transition: .3s;">
+                    <div class="d-flex align-items-center justify-content-center" style="height: 300px;">
+                        <img class="img-fluid rounded"
+                             src="@unit.Image"
+                             style="height: 100%; width: auto; object-fit: cover;" />
+                    </div>
+
+                    <div class="p-4 text-center">
+                        <h3 class="text-primary">@unit.Name</h3>
+
+                        @foreach (var f in unit.Features)
+                        {
+                            <p>@f</p>
+                        }
+
+                        <a asp-area="Member" asp-controller="Appointments" asp-action="Create" class="btn btn-primary rounded-pill py-2 px-4 my-2">
+                            Book Appointment
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <style>
+        .unit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,.15);
+        }
+    </style>
+
+    <!-- Pricing Plan End -->
+    <!-- Team Start -->
+    <!-- Doctors Section -->
+    <div id="doctors" class="container-fluid py-5" style="background: #f2f8fc;">
+        <div class="container">
+            <div class="text-center mx-auto mb-5" style="max-width: 500px;">
+                <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
+                <h1 class="display-6 mb-4">Meet Our Specialists</h1>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- Doctor Card -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                        <img src="img/team-1.jpg"
+                             class="img-fluid"
+                             style="height: 350px; width: 100%; object-fit: cover;" />
+
+                        <div class="p-4 text-center">
+                            <h4 class="fw-bold">Dr. Ana Petrovska</h4>
+                            <p class="text-primary fst-italic mb-2">Cardiologist</p>
+                            <p class="text-muted small">Dolor lorem lorem ipsum sit et ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                        <img src="img/team-2.jpg"
+                             class="img-fluid"
+                             style="height: 350px; width: 100%; object-fit: cover;" />
+
+                        <div class="p-4 text-center">
+                            <h4 class="fw-bold">Dr. Name Surname</h4>
+                            <p class="text-primary fst-italic mb-2">ENT Specialist</p>
+                            <p class="text-muted small">Dolor lorem lorem ipsum sit et ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctor Card -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                        <img src="img/team-3.jpg"
+                             class="img-fluid"
+                             style="height: 350px; width: 100%; object-fit: cover;" />
+
+                        <div class="p-4 text-center">
+                            <h4 class="fw-bold">Dr. Name Surname</h4>
+                            <p class="text-primary fst-italic mb-2">General Surgeon</p>
+                            <p class="text-muted small">Dolor lorem lorem ipsum sit et ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="contact" class="container-fluid bg-dark text-light mt-5 py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <!-- Contact Us Section -->
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Contact Us</h4>
+                    <p class="mb-4">We are here to assist you. Reach out to us anytime for inquiries or support.</p>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, Skopje, Macedonia</p>
+                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>hospital@gmail.com</p>
+                    <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>02 309 9500</p>
+                </div>
+
+                <!-- Message & Social Section -->
+                <div class="col-lg-4 col-md-6">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Write Your Message</h4>
+                    <form action="" class="mb-4">
+                        <div class="input-group">
+                            <input type="email" class="form-control p-3 border-0 rounded-start" placeholder="Your Email">
+                            <button class="btn btn-primary rounded-end">Send</button>
+                        </div>
+                    </form>
+                    <h6 class="text-primary text-uppercase mb-3">Follow Us</h6>
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-lg btn-outline-primary rounded-circle" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-lg btn-outline-primary rounded-circle" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-lg btn-outline-primary rounded-circle" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-lg btn-outline-primary rounded-circle" href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Optional Quick Links / Info Section -->
+                <div class="col-lg-4 col-md-12">
+                    <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#about" class="text-light text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#units" class="text-light text-decoration-none">Medical Units</a></li>
+                        <li class="mb-2"><a href="#doctors" class="text-light text-decoration-none">Doctors</a></li>
+                        <li class="mb-2"><a href="#appointment" class="text-light text-decoration-none">Book an appointment</a></li>
+                        <li><a asp-controller = "Home" asp-action="Contact" class="text-light text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container text-center mt-4">
+            <p class="mb-0">&copy; 2025 Hospital. All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <!-- Footer End -->
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+﻿@model WebApp.Models.AppointmentDefinition
+
+@{
+    ViewData["Title"] = "Book Appointment";
+    var availableDates = ViewBag.AvailableDates as List<DateTime>;
+    var selectedDate = ViewBag.SelectedDate as string;
+}
+
+<h1 class="display-4">Book an Appointment</h1>
+
+<form asp-action="Create" method="get" id="filterForm">
+    <div class="row mb-3">
+        <div class="col">
+            <label class="form-label">Polyclinic</label>
+            <select name="polyclinicId" class="form-select" asp-items="ViewBag.Polyclinics" onchange="this.form.submit();"></select>
+        </div>
+        <div class="col">
+            <label class="form-label">Doctor</label>
+            <select name="doctorId" class="form-select" asp-items="ViewBag.Doctors" onchange="this.form.submit();"></select>
+        </div>
+        <div class="col">
+            <label class="form-label">Available Date</label>
+            <select name="dateId" class="form-control" asp-items="ViewBag.AvailableDates" onchange="this.form.submit();"></select>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <label asp-for="TimeID" class="form-label">Appointment Time</label>
+        <select asp-for="TimeID" class="form-select" asp-items="ViewBag.AppointmentTimes"></select>
+    </div>
+    <input type="submit" value="Book Appointment" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-link">Back to My Appointments</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

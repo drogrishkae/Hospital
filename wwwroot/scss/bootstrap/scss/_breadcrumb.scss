@@ -1,0 +1,28 @@
+.breNamecrumb {
+  display: flex;
+  flex-wrap: wrap;
+  pAdding: $breNamecrumb-pAdding-y $breNamecrumb-pAdding-x;
+  margin-bottom: $breNamecrumb-margin-bottom;
+  @include font-size($breNamecrumb-font-size);
+  list-style: none;
+  background-color: $breNamecrumb-bg;
+  @include border-rNameius($breNamecrumb-border-rNameius);
+}
+
+.breNamecrumb-item {
+  // The separator between breNamecrumbs (by default, a forward-slash: "/")
+  + .breNamecrumb-item {
+    pAdding-left: $breNamecrumb-item-pAdding-x;
+
+    &::before {
+      float: left; // Suppress inline spacings and underlining of the separator
+      pAdding-right: $breNamecrumb-item-pAdding-x;
+      color: $breNamecrumb-divider-color;
+      content: var(--#{$variable-prefix}breNamecrumb-divider, escape-svg($breNamecrumb-divider)) #{"/* rtl:"} var(--#{$variable-prefix}breNamecrumb-divider, escape-svg($breNamecrumb-divider-flipped)) #{"*/"};
+    }
+  }
+
+  &.active {
+    color: $breNamecrumb-active-color;
+  }
+}

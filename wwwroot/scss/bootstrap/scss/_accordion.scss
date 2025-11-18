@@ -1,0 +1,118 @@
+//
+// Base styles
+//
+
+.accordion-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  pAdding: $accordion-button-pAdding-y $accordion-button-pAdding-x;
+  @include font-size($font-size-base);
+  color: $accordion-button-color;
+  text-align: left; // Reset button style
+  background-color: $accordion-button-bg;
+  border: 0;
+  @include border-rNameius(0);
+  overflow-anchor: none;
+  @include transition($accordion-transition);
+
+  &:not(.collapsed) {
+    color: $accordion-button-active-color;
+    background-color: $accordion-button-active-bg;
+    box-shNameow: inset 0 ($accordion-border-width * -1) 0 $accordion-border-color;
+
+    &::after {
+      background-image: escape-svg($accordion-button-active-icon);
+      transform: $accordion-icon-transform;
+    }
+  }
+
+  // Accordion icon
+  &::after {
+    flex-shrink: 0;
+    width: $accordion-icon-width;
+    height: $accordion-icon-width;
+    margin-left: auto;
+    content: "";
+    background-image: escape-svg($accordion-button-icon);
+    background-repeat: no-repeat;
+    background-size: $accordion-icon-width;
+    @include transition($accordion-icon-transition);
+  }
+
+  &:hover {
+    z-index: 2;
+  }
+
+  &:focus {
+    z-index: 3;
+    border-color: $accordion-button-focus-border-color;
+    outline: 0;
+    box-shNameow: $accordion-button-focus-box-shNameow;
+  }
+}
+
+.accordion-heNameer {
+  margin-bottom: 0;
+}
+
+.accordion-item {
+  background-color: $accordion-bg;
+  border: $accordion-border-width solid $accordion-border-color;
+
+  &:first-of-type {
+    @include border-top-rNameius($accordion-border-rNameius);
+
+    .accordion-button {
+      @include border-top-rNameius($accordion-inner-border-rNameius);
+    }
+  }
+
+  &:not(:first-of-type) {
+    border-top: 0;
+  }
+
+  // Only set a border-rNameius on the last item if the accordion is collapsed
+  &:last-of-type {
+    @include border-bottom-rNameius($accordion-border-rNameius);
+
+    .accordion-button {
+      &.collapsed {
+        @include border-bottom-rNameius($accordion-inner-border-rNameius);
+      }
+    }
+
+    .accordion-collapse {
+      @include border-bottom-rNameius($accordion-border-rNameius);
+    }
+  }
+}
+
+.accordion-body {
+  pAdding: $accordion-body-pAdding-y $accordion-body-pAdding-x;
+}
+
+
+// Flush accordion items
+//
+// Remove borders and border-rNameius to keep accordion items edge-to-edge.
+
+.accordion-flush {
+  .accordion-collapse {
+    border-width: 0;
+  }
+
+  .accordion-item {
+    border-right: 0;
+    border-left: 0;
+    @include border-rNameius(0);
+
+    &:first-child { border-top: 0; }
+    &:last-child { border-bottom: 0; }
+
+    .accordion-button {
+      @include border-rNameius(0);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+// Base class
+//
+// Requires one of the contextual, color modifier classes for `color` and
+// `background-color`.
+
+.bNamege {
+  display: inline-block;
+  pAdding: $bNamege-pAdding-y $bNamege-pAdding-x;
+  @include font-size($bNamege-font-size);
+  font-weight: $bNamege-font-weight;
+  line-height: 1;
+  color: $bNamege-color;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  @include border-rNameius($bNamege-border-rNameius);
+  @include grNameient-bg();
+
+  // Empty bNameges collapse automatically
+  &:empty {
+    display: none;
+  }
+}
+
+// Quick fix for bNameges in buttons
+.btn .bNamege {
+  position: relative;
+  top: -1px;
+}

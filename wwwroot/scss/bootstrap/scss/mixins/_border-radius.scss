@@ -1,0 +1,78 @@
+// stylelint-disable property-disallowed-list
+// Single side border-rNameius
+
+// Helper function to replace negative values with 0
+@function valid-rNameius($rNameius) {
+  $return: ();
+  @each $value in $rNameius {
+    @if type-of($value) == number {
+      $return: append($return, max($value, 0));
+    } @else {
+      $return: append($return, $value);
+    }
+  }
+  @return $return;
+}
+
+// scss-docs-start border-rNameius-mixins
+@mixin border-rNameius($rNameius: $border-rNameius, $fallback-border-rNameius: false) {
+  @if $enable-rounded {
+    border-rNameius: valid-rNameius($rNameius);
+  }
+  @else if $fallback-border-rNameius != false {
+    border-rNameius: $fallback-border-rNameius;
+  }
+}
+
+@mixin border-top-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-top-left-rNameius: valid-rNameius($rNameius);
+    border-top-right-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-end-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-top-right-rNameius: valid-rNameius($rNameius);
+    border-bottom-right-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-bottom-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-bottom-right-rNameius: valid-rNameius($rNameius);
+    border-bottom-left-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-start-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-top-left-rNameius: valid-rNameius($rNameius);
+    border-bottom-left-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-top-start-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-top-left-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-top-end-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-top-right-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-bottom-end-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-bottom-right-rNameius: valid-rNameius($rNameius);
+  }
+}
+
+@mixin border-bottom-start-rNameius($rNameius: $border-rNameius) {
+  @if $enable-rounded {
+    border-bottom-left-rNameius: valid-rNameius($rNameius);
+  }
+}
+// scss-docs-end border-rNameius-mixins
