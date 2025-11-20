@@ -125,11 +125,29 @@
     }
 </style> *@
 
+@model IEnumerable<WebApp.Models.AppointmentDefinition>
+
 @{
     ViewData["Title"] = "Admin";
-    var appointments = ViewBag.AppointmentDefinitions as List<WebApp.Models.AppointmentDefinition>;
+    var appointments = Model?.ToList();
     var patientNames = appointments?.Select(a => a.PatientName).Distinct().ToList();
 }
+
+<form method="get" asp-action="Index" class="google-search-wrapper mb-5">
+    <div class="google-search-box">
+        <i class="bi bi-search google-search-icon"></i>
+
+        <input type="text"
+               name="identificationNumber"
+               class="google-search-input"
+               placeholder="Search by Identification Number"
+               value="@Context.Request.Query["identificationNumber"]" />
+
+        <button type="submit" class="google-btn search-btn">Search</button>
+        <a href="@Url.Action("Index", "Admin", new { area = "Admin" })"
+           class="google-btn clear-btn">Clear</a>
+    </div>
+</form>
 
 <h2>All Patients</h2>
 <table class="table table-bordered">
@@ -164,17 +182,100 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var appt in appointments)
+        @foreach (var appt in appointments ?? Enumerable.Empty<WebApp.Models.AppointmentDefinition>())
         {
             <tr>
                 <td>@appt.PatientName</td>
                 <td>@appt.IdentificationNumber</td>
-                <td>@appt.Polyclinic.PolyclinicName</td>
-                <td>@appt.Doctor.DoctorName</td>
+                <td>@appt.Polyclinic?.PolyclinicName</td>
+                <td>@appt.Doctor?.DoctorName</td>
                 <td>@appt.Date.Date.ToString("dd.MM.yyyy")</td>
-                <td>@appt.Time.AppointmentTimes</td>
+                <td>@appt.Time?.AppointmentTimes</td>
             </tr>
         }
     </tbody>
 </table>
+
+<style>
+    /* Wrapper centers search bar */
+    .google-search-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Main search container */
+    .google-search-box {
+        width: 650px;
+        background: #fff;
+        border: 1px solid #dcdcdc;
+        border-radius: 30px;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: box-shadow 0.2s ease;
+    }
+
+        /* Hover shadow like Google */
+        .google-search-box:hover {
+            box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+        }
+
+    /* Search icon */
+    .google-search-icon {
+        font-size: 18px;
+        color: #777;
+        margin-left: 5px;
+    }
+
+    /* Input box styled like Google */
+    .google-search-input {
+        border: none;
+        outline: none;
+        font-size: 1.1rem;
+        flex: 1;
+        padding: 8px 0;
+    }
+
+    /* Buttons (styled like Google pills) */
+    .google-btn {
+        border: 1px solid #dcdcdc;
+        background-color: #f8f9fa;
+        border-radius: 20px;
+        padding: 6px 18px;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s;
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+    }
+
+        .google-btn:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+        }
+
+    /* Specific colors (optional) */
+    .search-btn {
+        color: white;
+        background-color: #13C5DD;
+        border: none;
+    }
+
+        .search-btn:hover {
+            background-color: #0fa7bd;
+        }
+
+    .clear-btn {
+        background-color: #3c4c6a;
+        color: white;
+        border: none;
+    }
+
+        .clear-btn:hover {
+            background-color: #2d3b50;
+        }
+</style>
+
 

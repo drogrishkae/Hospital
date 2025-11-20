@@ -265,3 +265,4 @@ C:\Users\Lenovo\Downloads\Hospital-Information-System-main\Hospital-Information-
 C:\Users\Lenovo\Downloads\Hospital-Information-System-main\Hospital-Information-System-main\WebApp\obj\Debug\net8.0\WebApp.pdb
 C:\Users\Lenovo\Downloads\Hospital-Information-System-main\Hospital-Information-System-main\WebApp\obj\Debug\net8.0\WebApp.genruntimeconfig.cache
 C:\Users\Lenovo\Downloads\Hospital-Information-System-main\Hospital-Information-System-main\WebApp\obj\Debug\net8.0\ref\WebApp.dll
+C:\Users\Lenovo\Downloads\Hospital-Information-System-main\Hospital-Information-System-main\WebApp\obj\Debug\net8.0\WebApp.sourcelink.json

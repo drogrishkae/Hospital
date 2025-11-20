@@ -16,42 +16,41 @@ namespace WebApp.Areas.Admin.Controllers
             _context = context;
         }
 
-        public async Task <IActionResult> Index()
+        //public async Task <IActionResult> Index()
+        //{
+
+
+        //    var appointments = await _context.AppointmentDefinitions
+        //        //.Include(a => a.PatientName)
+        //        .Include(a => a.Doctor)
+        //            .ThenInclude(d => d.Polyclinic)
+        //        .Include(a => a.Time)
+        //        .Include(a => a.Date)
+        //        .ToListAsync();
+
+
+        //    ViewBag.AppointmentDefinitions = appointments;
+
+        //    return View();
+        //}
+
+        public async Task<IActionResult> Index(string identificationNumber)
         {
-            // Get the "Member" role id
-            //var memberRole = _context.Roles.FirstOrDefault(r => r.Name == "Member");
-            //if (memberRole == null)
-            //{
-            //    ViewBag.Patients = new List<WebApp.Models.Member>();
-            //}
-            //else
-            //{
-            //    // Get user ids that have the "Member" role
-            //    var memberIds = _context.UserRoles
-            //        .Where(ur => ur.RoleId == memberRole.Id)
-            //        .Select(ur => ur.UserId)
-            //        .ToList();
-
-            //    // Get only users with the "Member" role
-            //    var patients = _context.Members
-            //        .Where(m => memberIds.Contains(m.Id))F
-            //        .ToList();
-
-            //    ViewBag.Patients = patients;
-            //}
-
-            var appointments = await _context.AppointmentDefinitions
-                //.Include(a => a.PatientName)
+            var query = _context.AppointmentDefinitions
                 .Include(a => a.Doctor)
                     .ThenInclude(d => d.Polyclinic)
                 .Include(a => a.Time)
                 .Include(a => a.Date)
-                .ToListAsync();
+                .AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(identificationNumber))
+            {
+                query = query.Where(a => a.IdentificationNumber.Contains(identificationNumber));
+            }
 
-            ViewBag.AppointmentDefinitions = appointments;
+            var appointments = await query.ToListAsync();
 
-            return View();
+            return View(appointments); // Pass as model
         }
     }
 }

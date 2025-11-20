@@ -1,4 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using WebApp.Models
+@inject SignInManager<Member> SignInManager
+@inject UserManager<Member> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <!DOCTYPE html>
@@ -42,7 +47,10 @@
                         The Best Health Solutions in Your City
                     </h1>
                     <div class="pt-2">
-                        <a asp-area="Member" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2" asp-controller="Appointments" asp-action="Create">Book Appointment</a>
+                        @if (SignInManager.IsSignedIn(User) && !(UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "Admin").Result))
+                        {
+                            <a asp-area="Member" class="btn btn-outline-light rounded-pill py-md-3 px-md-5 mx-2" asp-controller="Appointments" asp-action="Create">Book Appointment</a>
+                        }
                     </div>
                 </div>
             </div>
@@ -55,7 +63,7 @@
             <div class="row gx-5">
                 <div class="col-lg-5 mb-5 mb-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
-                        <img class="position-absolute w-100 h-100 rounded" src="~/img/about.jpg" style="object-fit: cover;">
+                        <img class="position-absolute w-100 h-100 rounded" src="~/img/aboutus.jpg" style="object-fit: cover;">
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -66,9 +74,11 @@
                         </h1>
                     </div>
                     <p>
-                        Since 2012, in Kurtköy, Istanbul’s rising center, we have been providing uninterrupted healthcare services with our advanced medical technology, specialists in every branch, compliance with international accreditation standards in healthcare, our modern architecture, and fully equipped diagnostic and treatment units.
+                        Since 2015, in Bitola, our hospital has been delivering uninterrupted healthcare services with the latest medical technology, highly experienced specialists in Cardiology, Nephrology, and Endocrinology, and full compliance with international healthcare standards.
                     </p><p>
-                        We work tirelessly to maintain and improve our facility, designed with all the needs of our guests coming from every part of Turkey and the world in mind, within the framework of universal patient rights, where they feel 'comfortable, peaceful, and safe'
+                        Our modern facilities are designed to provide comprehensive diagnostic and treatment services, ensuring that every patient receives personalized care. We work tirelessly to create an environment where patients feel comfortable, safe, and supported, whether they come from Bitola or other parts of North Macedonia and beyond.
+                    </p><p>
+                        By integrating cardiology, kidney, and endocrine care, we ensure coordinated treatment for conditions like heart disease, kidney disorders, and diabetes, helping patients achieve better health outcomes through a holistic approach.
                     </p>
                     <div class="row g-3 pt-3">
                         <div class="col-sm-3 col-6">
@@ -112,32 +122,32 @@
         {
         new {
         Name = "Cardiology",
-        Image = "img/price-1.jpg",
+        Image = "img/cardiology.jpg",
         Features = new [] {
-        "Emergency Medical Treatment",
-        "Highly Experienced Doctors",
-        "Highest Success Rate",
-        "Telephone Service"
+        "Advanced Heart Diagnostics",
+        "Experienced Cardiologists",
+        "High Success in Cardiac Procedures",
+        "24/7 Emergency Care"
         }
         },
         new {
-        Name = "Pulmonology",
-        Image = "img/price-2.jpg",
+        Name = "Nephrology",
+        Image = "img/nephrology.jpg",
         Features = new [] {
-        "Emergency Medical Treatment",
-        "Highly Experienced Doctors",
-        "Highest Success Rate",
-        "Telephone Service"
+        "Kidney Disease Management",
+        "Specialized Dialysis Units",
+        "Expert Nephrologists",
+        "Comprehensive Lab Services"
         }
         },
         new {
-        Name = "Dermatology",
-        Image = "img/price-3.jpg",
+        Name = "Endocrinology",
+        Image = "img/endocrinology.jpg",
         Features = new [] {
-        "Emergency Medical Treatment",
-        "Highly Experienced Doctors",
-        "Highest Success Rate",
-        "Telephone Service"
+        "Diabetes & Hormone Care",
+        "Metabolic Disorder Treatment",
+        "Experienced Endocrinologists",
+        "Personalized Health Plans"
         }
         }
         };
@@ -179,64 +189,136 @@
     </style>
 
     <!-- Pricing Plan End -->
-    <!-- Team Start -->
-    <!-- Doctors Section -->
+    <!-- Doctor Carousel Wrapper -->
     <div id="doctors" class="container-fluid py-5" style="background: #f2f8fc;">
         <div class="container">
             <div class="text-center mx-auto mb-5" style="max-width: 500px;">
                 <h5 class="d-inline-block text-primary text-uppercase border-bottom border-5">Our Doctors</h5>
                 <h1 class="display-6 mb-4">Meet Our Specialists</h1>
-            </div>
+             </div>
+    
+            <div class="doctor-carousel-container position-relative">
 
-            <div class="row g-4">
+                <!-- Left Arrow -->
+                <button class="carousel-btn left" onclick="moveDoctorsCarousel(-1)">&#10094;</button>
 
-                <!-- Doctor Card -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="bg-white rounded shadow-sm overflow-hidden h-100">
-                        <img src="img/team-1.jpg"
-                             class="img-fluid"
-                             style="height: 350px; width: 100%; object-fit: cover;" />
+                <!-- Carousel -->
+                <div class="doctor-carousel d-flex" id="doctorCarousel">
 
-                        <div class="p-4 text-center">
-                            <h4 class="fw-bold">Dr. Ana Petrovska</h4>
-                            <p class="text-primary fst-italic mb-2">Cardiologist</p>
-                            <p class="text-muted small">Dolor lorem lorem ipsum sit et ipsum.</p>
+                    <!-- Existing Doctor Cards -->
+                    <!-- CARD 1 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Elena_Markovic.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Elena Markovic</h4>
+                                <p class="text-primary fst-italic mb-2">Cardiologist</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Doctor Card -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="bg-white rounded shadow-sm overflow-hidden h-100">
-                        <img src="img/team-2.jpg"
-                             class="img-fluid"
-                             style="height: 350px; width: 100%; object-fit: cover;" />
-
-                        <div class="p-4 text-center">
-                            <h4 class="fw-bold">Dr. Name Surname</h4>
-                            <p class="text-primary fst-italic mb-2">ENT Specialist</p>
-                            <p class="text-muted small">Dolor lorem lorem ipsum sit et ipsum.</p>
+                    <!-- CARD 2 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Stefan_Dimitrov.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Stefan Dimitrov</h4>
+                                <p class="text-primary fst-italic mb-2">Interventional Cardiologist</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Doctor Card -->
-                <div class="col-lg-4 col-md-6">
-                    <div class="bg-white rounded shadow-sm overflow-hidden h-100">
-                        <img src="img/team-3.jpg"
-                             class="img-fluid"
-                             style="height: 350px; width: 100%; object-fit: cover;" />
-
-                        <div class="p-4 text-center">
-                            <h4 class="fw-bold">Dr. Name Surname</h4>
-                            <p class="text-primary fst-italic mb-2">General Surgeon</p>
-                            <p class="text-muted small">Dolor lorem lorem ipsum sit et ipsum.</p>
+                    <!-- CARD 3 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Ana_Petrova.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Ana Petrova</h4>
+                                <p class="text-primary fst-italic mb-2">Heart Failure Specialist</p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
+                    <!-- CARD 4 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Nikola_Stojanov.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Nikola Stojanov</h4>
+                                <p class="text-primary fst-italic mb-2">Nephrologist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 5 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Marija_Koleva.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Marija Koleva</h4>
+                                <p class="text-primary fst-italic mb-2">Kidney Disease Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 6 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Petar_Ivanovski.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Petar Ivanovski</h4>
+                                <p class="text-primary fst-italic mb-2">Dialysis Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 7 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Ivana_Georgieva.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Ivana Georgieva</h4>
+                                <p class="text-primary fst-italic mb-2">Endocrinologist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 8 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Viktor_Ristov.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Viktor Ristov</h4>
+                                <p class="text-primary fst-italic mb-2">Diabetes & Metabolism Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 9 -->
+                    <div class="doctor-card">
+                        <div class="bg-white rounded shadow-sm overflow-hidden h-100">
+                            <img src="img/Kristina_Ilieva.jpg" class="img-fluid"
+                                 style="height: 350px; width: 100%; object-fit: cover;" />
+                            <div class="p-4 text-center">
+                                <h4 class="fw-bold">Dr. Kristina Ilieva</h4>
+                                <p class="text-primary fst-italic mb-2">Thyroid & Hormonal Disorders Specialist</p>
+                            </div>
+                        </div>
+                    </div>
+
         </div>
+
+        <!-- Right Arrow -->
+        <button class="carousel-btn right" onclick="moveDoctorsCarousel(1)">&#10095;</button>
+
     </div>
 
 
@@ -248,9 +330,9 @@
                 <div class="col-lg-4 col-md-6">
                     <h4 class="d-inline-block text-primary text-uppercase border-bottom border-5 border-secondary mb-4">Contact Us</h4>
                     <p class="mb-4">We are here to assist you. Reach out to us anytime for inquiries or support.</p>
-                    <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>123 Street, Skopje, Macedonia</p>
-                    <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>hospital@gmail.com</p>
-                    <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>02 309 9500</p>
+                            <p class="mb-2"><i class="fa fa-map-marker-alt text-primary me-3"></i>Partizanska 112, 7000 Bitola, North Macedonia</p>
+                            <p class="mb-2"><i class="fa fa-envelope text-primary me-3"></i>info@cmcbitola.mk</p>
+                            <p class="mb-0"><i class="fa fa-phone-alt text-primary me-3"></i>+389 47 555 880</p>
                 </div>
 
                 <!-- Message & Social Section -->
@@ -309,3 +391,27 @@
 </body>
 
 </html>
+
+@section Scripts {
+    <script>
+        let doctorSlide = 0;
+
+        function moveDoctorsCarousel(direction) {
+            const carousel = document.getElementById("doctorCarousel");
+            const cardWidth = carousel.children[0].offsetWidth + 25;
+            const totalCards = carousel.children.length;
+            const visible = 3;
+
+            const maxSlide = totalCards - visible;
+
+            doctorSlide += direction;
+
+            if (doctorSlide < 0) doctorSlide = 0;
+            if (doctorSlide > maxSlide) doctorSlide = maxSlide;
+
+            carousel.style.transform = `translateX(-${doctorSlide * cardWidth}px)`;
+        }
+    </script>
+}
+
+

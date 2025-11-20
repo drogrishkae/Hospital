@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.Build.Framework;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Models
 {
@@ -8,11 +9,14 @@ namespace WebApp.Models
     {
         public int AppointmentDefinitionID { get; set; }
 
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
         public string PatientName { get; set; }
 
-        [Required]
+        [System.ComponentModel.DataAnnotations.Required]
+        [RegularExpression(@"^\d{13}$", ErrorMessage = "Invalid identification number")]
         public string IdentificationNumber { get; set; }
+
+
         public int PolyclinicID { get; set; }
         public int DoctorID { get; set; }
         public int TimeID { get; set; }
